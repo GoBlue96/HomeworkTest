@@ -21,8 +21,8 @@ void addTopOrBottomLine();
 
 #define MATRIX_SIZE 5 // X by X matrix (in this case, 5 x 5)
 
-char matrix[MATRIX_SIZE][MATRIX_SIZE];
-int guesses = 10;
+char matrix[MATRIX_SIZE][MATRIX_SIZE];	// the matrix by spec will always be square
+int guesses = 10;						// how many guesses the player gets before they lose
 
 
 /*****************************
@@ -38,6 +38,7 @@ int main()
 	// place the X at some random location
 	PlaceTreasure();
 
+	// print the matrix that the user can see while playing
 	PrintPublicMatrix();
 
 	// keep asking for user input until they win or loose
@@ -48,7 +49,7 @@ int main()
 
 
 	cout << "Press any key to exit";
-	_getch();
+	_getch();	// wait for them to type something
 
 
     return 0;
@@ -84,11 +85,9 @@ void PlaceTreasure()
 
 	// rand will return a number >= 0 and < RAND_MAX, so we need to convert it so it fits our matrix range.
 	unsigned int x = (double)rand() / (RAND_MAX + 1) * (MATRIX_SIZE);
-	//	unsigned int x = (double)rand() / (MATRIX_SIZE + 1) * (MATRIX_SIZE);
-
 	unsigned int y = (double)rand() / (RAND_MAX + 1) * (MATRIX_SIZE);
 
-	matrix[x][y] = 'X';
+	matrix[x][y] = 'X';	// X marks the spot.  Here is the treasure, but wee won't display it in the publis matrix.
 
 }
 
@@ -103,14 +102,17 @@ void PrintPublicMatrix()
 	cout << endl << endl;
 	cout << "You have " << guesses << " guesses left." << endl;
 
-	addTopOrBottomLine();
+	addTopOrBottomLine();		// top or bottom line to make it look like a box around the map
 
 	// loop through the matrix to print it out.
 	for (int i = 0; i < MATRIX_SIZE; i++)
 	{
-		cout << "|";
+		cout << "|";	// draw the vertical line on the left side
+
+
 		for (int j = 0; j < MATRIX_SIZE; j++)
 		{
+			// check if this is the X that we need to hide.
 			if (matrix[i][j] == 'X')
 			{
 				cout << '~';
@@ -120,7 +122,7 @@ void PrintPublicMatrix()
 				cout << matrix[i][j];
 			}
 		}
-		cout << "|" << endl;
+		cout << "|" << endl;	// draw the vertical line on the right side
 	}
 	addTopOrBottomLine();
 
@@ -136,18 +138,19 @@ void PrintSecretMatrix()
 	// make sure we are on a new line
 	cout << endl << endl;
 
-	addTopOrBottomLine();
+	addTopOrBottomLine();		// top or bottom line to make it look like a box around the map
+
 	// loop through the matrix to print it out.
 	for (int i = 0; i < MATRIX_SIZE; i++)
 	{
-		cout << "|";
+		cout << "|";  // draw the vertical line on the left side
 		for (int j = 0; j < MATRIX_SIZE; j++)
 		{
 			cout << matrix[i][j];
 		}
 		cout << "|" << endl;
 	}
-	addTopOrBottomLine();
+	addTopOrBottomLine();	// draw the vertical line on the right side
 
 }
 
@@ -181,13 +184,13 @@ bool GetUserGuess()
 		// validate the input
 		if (x < 1 || x > MATRIX_SIZE)
 		{
-			cout << "Your X value is out of bounds";
+			cout << "Your X value is out of bounds\n";
 			badInput = true;
 		}
 
 		if (y < 1 || y > MATRIX_SIZE)
 		{
-			cout << "Your Y value is out of bounds";
+			cout << "Your Y value is out of bounds\n";
 			badInput = true;
 		}
 
@@ -223,7 +226,7 @@ bool ProcessGuess(int x, int y)
 		matrix[x-1][y-1] = 'O';
 		guesses--;
 
-		if (guesses <= 0)
+		if (guesses <= 0)	// should never be less than zero, but it's safer in case you get unexpected data.
 		{
 			cout << "You ran out of guesses.  You lose." << endl << "Here was the hidden treasure" << endl;
 			PrintSecretMatrix();
