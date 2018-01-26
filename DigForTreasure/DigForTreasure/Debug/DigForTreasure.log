@@ -1,0 +1,5 @@
+﻿  DigForTreasure.cpp
+c:\users\bill\documents\visual studio 2015\projects\digfortreasure\digfortreasure\digfortreasure.cpp(86): warning C4244: 'initializing': conversion from 'double' to 'unsigned int', possible loss of data
+c:\users\bill\documents\visual studio 2015\projects\digfortreasure\digfortreasure\digfortreasure.cpp(89): warning C4244: 'initializing': conversion from 'double' to 'unsigned int', possible loss of data
+  DigForTreasure.vcxproj -> c:\users\bill\documents\visual studio 2015\Projects\DigForTreasure\Debug\DigForTreasure.exe
+  DigForTreasure.vcxproj -> c:\users\bill\documents\visual studio 2015\Projects\DigForTreasure\Debug\DigForTreasure.pdb (Full PDB)
